@@ -1,65 +1,130 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+import React, { useState, useEffect } from 'react';
+
+export default function ValentineProject() {
+  const [noButtonPos, setNoButtonPos] = useState({ top: '50%', left: '60%' });
+  const [isAccepted, setIsAccepted] = useState(false);
+  const [noCount, setNoCount] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  // Fix for hydration in Next.js
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const noPhrases = [
+    "No",
+    "Are you sure?",
+    "Paka kotha?",
+    "Ki lo? Click korte parona?",
+    "Arre try koro...",
+    "Kopal e nai!",
+    "Bhalobasha dorkar!",
+    "Wrong choice, baby!",
+    "Ekbar bhebe dekho...",
+    "Hobe an bhai",
+    "Error 404: No not found",
+    "Try harder!",
+    "Bhai, thak dorkar nai...",
+    "Oops! Missed it.",
+    "Click me if you can!",
+    "Yes e click koro lokhi meye",
+    "Still trying? 😂",
+    "Persistence is key, but not here.",
+    "Na bolle hobe?",
+    "Just give up already!",
+    "Eto shoja",
+    "Dhurrr!",
+    "Asha chere dao",
+    "Kopal tai pora!",
+    "Boka naki?",
+    "তোমায় নিয়ে পালাবো",
+    "সুইজারল্যান্ড যাবো",
+    "না না, মাল্টা যাবো",
+    "মাল্টা খাবো",
+    "এমন ছেলে হারালে",
+    "কাঁদতে হবে আড়ালে",
+    "আমি হলাম রোমিও",
+    "লেডি কিলার রোমিও",
+    "পাক্কা প্লেবয় রোমিও"
+  ];
+
+  const moveButton = () => {
+    // Generate random position between 5% and 85% to keep it safe from screen edges
+    const randomX = Math.floor(Math.random() * 80) + 5;
+    const randomY = Math.floor(Math.random() * 80) + 5;
+    
+    setNoButtonPos({ top: `${randomY}%`, left: `${randomX}%` });
+    setNoCount((prev) => prev + 1);
+  };
+
+  if (!mounted) return null;
+
+  if (isAccepted) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-pink-100 text-center p-6 transition-all duration-500">
+        <h1 className="text-5xl font-extrabold text-red-600 mb-6 animate-bounce">
+          Finally! ❤️
+        </h1>
+        <div className="bg-white p-6 rounded-2xl shadow-xl border-2 border-pink-300 max-w-sm">
+          <p className="text-xl text-gray-800 font-medium">
+            It only took you <span className="text-red-500 font-bold text-2xl">{noCount}</span> attempts to realize we're a match!
+          </p>
+          <p className="text-sm text-gray-500 mt-2 italic">
+            {noCount > 10 ? "Kafi beshi dhoirjo tomar!" : "That was quick!"}
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+        <img 
+          src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1eXlzY2N4eXN4eXN4eXN4eXN4eXN4eXN4eXN4eXN4ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0HlIDU84K376wT28/giphy.gif" 
+          alt="celebration" 
+          className="rounded-lg shadow-2xl w-72 mt-8" 
+        />
+      </div>
+    );
+  }
+
+  return (
+    <main className="relative flex flex-col items-center justify-center h-screen bg-gradient-to-b from-pink-50 to-white overflow-hidden p-4">
+      <div className="z-10 text-center mb-12">
+        <h1 className="text-4xl md:text-6xl font-black text-pink-600 drop-shadow-sm">
+          Will you be my Valentine? 🌹
+        </h1>
+        {noCount > 0 && (
+          <p className="mt-4 text-pink-400 font-mono font-bold animate-pulse">
+            Attempts to escape: {noCount}
+          </p>
+        )}
+      </div>
+      
+      <div className="flex gap-8 items-center z-10">
+        {/* YES BUTTON */}
+        <button
+          onClick={() => setIsAccepted(true)}
+          className="bg-green-500 hover:bg-green-600 text-white font-black py-4 px-12 rounded-full text-2xl transition-all transform hover:scale-150 active:scale-95 shadow-[0_0_20px_rgba(34,197,94,0.5)]"
+        >
+          Yes
+        </button>
+
+        {/* MOVING NO BUTTON */}
+        <button
+          onMouseEnter={moveButton}
+          onTouchStart={moveButton}
+          style={{ 
+            position: 'absolute', 
+            top: noButtonPos.top, 
+            left: noButtonPos.left,
+            transition: 'all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+          }}
+          className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg whitespace-nowrap min-w-[100px]"
+        >
+          {noPhrases[noCount % noPhrases.length]}
+        </button>
+      </div>
+
+      {/* Background Decor */}
+      <div className="absolute top-10 left-10 text-pink-200 text-6xl opacity-20">❤️</div>
+      <div className="absolute bottom-10 right-10 text-pink-200 text-6xl opacity-20">💖</div>
+    </main>
   );
 }
