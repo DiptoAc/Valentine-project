@@ -70,14 +70,13 @@ export default function ValentineProject() {
     "পাক্কা প্লেবয় রোমিও"
   ];
 
-  const moveButton = () => {
-  // We use a slightly smaller range (e.g., 5% to 75%) to ensure 
-  // the width of the button doesn't push it off-screen.
-  const randomX = Math.floor(Math.random() * 70) + 5; 
-  const randomY = Math.floor(Math.random() * 80) + 5;
-  
-  setNoButtonPos({ top: `${randomY}%`, left: `${randomX}%` });
-  setNoCount((prev) => prev + 1);
+const moveButton = () => {
+  // Narrower range for mobile (max 60% of width)
+  const randomX = Math.floor(Math.random() * 60) + 10; 
+  const randomY = Math.floor(Math.random() * 70) + 15;
+  
+  setNoButtonPos({ top: `${randomY}%`, left: `${randomX}%` });
+  setNoCount((prev) => prev + 1);
 };
 
   if (!mounted) return null;
@@ -106,7 +105,7 @@ export default function ValentineProject() {
   }
 
   return (
-    <main className="relative flex flex-col items-center justify-center h-screen bg-gradient-to-b from-pink-50 to-white overflow-hidden p-4">
+    <main className="relative flex flex-col items-center justify-center h-screen bg-gradient-to-b from-pink-50 to-white overflow-hidden p-4 touch-none">
       <div className="z-10 text-center mb-12">
         <h1 className="text-4xl md:text-6xl font-black text-pink-600 drop-shadow-sm">
           Will you be my Valentine? 🌹
@@ -120,29 +119,28 @@ export default function ValentineProject() {
       
       <div className="flex gap-8 items-center z-10">
         {/* YES BUTTON */}
-        <button
-          onClick={() => setIsAccepted(true)}
-          className="bg-green-500 hover:bg-green-600 text-white font-black py-4 px-12 rounded-full text-2xl transition-all transform hover:scale-150 active:scale-95 shadow-[0_0_20px_rgba(34,197,94,0.5)]"
-        >
-          Yes
-        </button>
+      <button
+        onClick={() => setIsAccepted(true)}
+        className="bg-green-500 hover:bg-green-600 text-white font-black py-3 px-8 md:py-4 md:px-12 rounded-full text-xl md:text-2xl transition-all transform hover:scale-110 active:scale-95 shadow-lg z-20"
+      >
+        Yes
+      </button>
 
         {/* MOVING NO BUTTON */}
-        <button
-          onMouseEnter={moveButton}
-          onTouchStart={moveButton}
-          style={{ 
-            position: 'absolute', 
-            top: noButtonPos.top, 
-            left: noButtonPos.left,
-            transition: 'all 0.1s ease-out',
-          }}
-          className="bg-red-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg 
-                    max-w-[180px] sm:max-w-none whitespace-normal text-center"
-        >
-          {noPhrases[noCount % noPhrases.length]}
-        </button>
-      </div>
+        <button
+          onMouseEnter={moveButton}
+          onTouchStart={(e) => { e.preventDefault(); moveButton(); }} // Prevents mobile ghost clicks
+          style={{ 
+            position: 'absolute', 
+            top: noButtonPos.top, 
+            left: noButtonPos.left,
+            transition: 'all 0.15s ease-out',
+          }}
+          className="bg-red-500 text-white font-bold py-2 px-4 rounded-lg shadow-md whitespace-nowrap text-sm md:text-base z-20"
+        >
+          {noPhrases[noCount % noPhrases.length]}
+        </button>
+      </div>
 
       {/* Background Decor */}
       <div className="absolute top-10 left-10 text-pink-200 text-6xl opacity-20">❤️</div>
