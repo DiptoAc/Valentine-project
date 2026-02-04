@@ -25,6 +25,11 @@ export default function ValentineProject() {
         origin: { y: 0.6 },
         colors: ['#ff0000', '#ff69b4', '#ffffff']
       });
+
+      //Music
+      const audio = new Audio('/music.mp3');
+      audio.loop = true;
+      audio.play().catch(e => console.error("Audio play failed:", e));
     }
   }, [isAccepted]); // This runs once on load AND whenever isAccepted changes
 
