@@ -170,12 +170,39 @@ const Accepted: React.FC<AcceptedProps> = ({ noCount }) => {
               <span>🎊</span> Trigger Confetti Rain <span>🎊</span>
             </motion.button>
           )}
+
+          
         </div>
+
+        
 
         {/* Fairy Tale Magic Dust Decor */}
         <div className="absolute top-4 right-4 text-yellow-400 opacity-30 text-2xl animate-pulse">✨</div>
         <div className="absolute bottom-20 left-4 text-pink-300 opacity-40 text-xl animate-bounce">💖</div>
       </motion.div>
+      {page === storyPages.length - 1 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }} // Slight delay so it appears after the page flip
+            >
+              {/* SUST CREDIT - Bottom Left */}
+              <div className="absolute bottom-4 left-4 z-30 flex flex-col items-start opacity-60 hover:opacity-100 transition-opacity">
+                <p className="text-[10px] md:text-xs font-mono font-bold text-red-800 uppercase tracking-widest">
+                  Handcrafted by Sudipto @ SUST
+                </p>
+                <div className="h-[1.5px] w-full bg-red-300 mt-1" />
+              </div>
+
+              {/* REPLAY BUTTON - Bottom Right */}
+              <button
+                onClick={() => window.location.reload()}
+                className="absolute bottom-4 right-4 z-30 bg-white/70 hover:bg-white text-red-500 hover:text-red-700 px-4 py-2 rounded-full shadow-md transition-all flex items-center gap-2 text-xs font-black border border-red-200 active:scale-90"
+              >
+                <span>🔄</span> START OVER
+              </button>
+            </motion.div>
+          )}
 
       {/* Background decoration for the whole screen */}
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none opacity-10 z-0">
