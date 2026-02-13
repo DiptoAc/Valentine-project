@@ -10,44 +10,43 @@ interface AcceptedProps {
 }
 
 const bgColors = [
-  // --- Pinks & Roses ---
-  "bg-[#fff5f5]", // Very Pale Pink
-  "bg-[#ffe4e6]", // Soft Rose
-  "bg-[#fecdd3]", // Vibrant Blush
-  "bg-[#fda4af]", // Deep Rose
-  
-  // --- Purples & Lavenders ---
-  "bg-[#f5f3ff]", // Pale Lavender
-  "bg-[#ede9fe]", // Light Purple
-  "bg-[#ddd6fe]", // Soft Violet
-  "bg-[#c4b5fd]", // Vibrant Lavender
-  
-  // --- Blues & Cyans ---
-  "bg-[#eff6ff]", // Ice Blue
-  "bg-[#dbeafe]", // Sky Blue
-  "bg-[#bfdbfe]", // Soft Azure
-  "bg-[#93c5fd]", // Bright Blue
-  
-  // --- Teals & Mint ---
-  "bg-[#f0fdfa]", // Pale Mint
-  "bg-[#ccfbf1]", // Light Teal
-  "bg-[#99f6e4]", // Soft Aqua
-  "bg-[#5eead4]", // Vibrant Teal
-  
-  // --- Greens ---
-  "bg-[#f0fdf4]", // Pale Sage
-  "bg-[#dcfce7]", // Light Green
-  "bg-[#bbf7d0]", // Soft Mint Green
-  "bg-[#86efac]", // Bright Pastel Green
-  
-  // --- Yellows & Oranges ---
-  "bg-[#fffbeb]", // Cream
-  "bg-[#fef3c7]", // Soft Gold
-  "bg-[#fde68a]", // Warm Yellow
-  "bg-[#fcd34d]", // Vibrant Amber
-  "bg-[#ffedd5]", // Pale Peach
-  "bg-[#fed7aa]", // Soft Orange
-  "bg-[#fdba74]"  // Warm Apricot
+  // --- PINK SERENADE (The Loop Starts) ---
+  "bg-[#fff5f5]", "bg-[#fff1f2]", "bg-[#ffe4e6]", "bg-[#fecdd3]", 
+  "bg-[#fda4af]", "bg-[#fb7185]", "bg-[#fda4af]", "bg-[#fecdd3]", 
+  "bg-[#ffe4e6]", "bg-[#fff1f2]",
+
+  // --- PURPLE HARMONY ---
+  "bg-[#f5f3ff]", "bg-[#ede9fe]", "bg-[#ddd6fe]", "bg-[#c4b5fd]", 
+  "bg-[#a78bfa]", "bg-[#8b5cf6]", "bg-[#a78bfa]", "bg-[#c4b5fd]", 
+  "bg-[#ddd6fe]", "bg-[#ede9fe]",
+
+  // --- BLUE TRANQUILITY ---
+  "bg-[#eff6ff]", "bg-[#dbeafe]", "bg-[#bfdbfe]", "bg-[#93c5fd]", 
+  "bg-[#60a5fa]", "bg-[#3b82f6]", "bg-[#60a5fa]", "bg-[#93c5fd]", 
+  "bg-[#bfdbfe]", "bg-[#dbeafe]",
+
+  // --- TEAL & MINT REFRESH ---
+  "bg-[#f0fdfa]", "bg-[#ccfbf1]", "bg-[#99f6e4]", "bg-[#5eead4]", 
+  "bg-[#2dd4bf]", "bg-[#14b8a6]", "bg-[#2dd4bf]", "bg-[#5eead4]", 
+  "bg-[#99f6e4]", "bg-[#ccfbf1]",
+
+  // --- EMERALD & SAGE ---
+  "bg-[#f0fdf4]", "bg-[#dcfce7]", "bg-[#bbf7d0]", "bg-[#86efac]", 
+  "bg-[#4ade80]", "bg-[#22c55e]", "bg-[#4ade80]", "bg-[#86efac]", 
+  "bg-[#bbf7d0]", "bg-[#dcfce7]",
+
+  // --- SUNSET GOLD & AMBER ---
+  "bg-[#fffbeb]", "bg-[#fef3c7]", "bg-[#fde68a]", "bg-[#fcd34d]", 
+  "bg-[#fbbf24]", "bg-[#f59e0b]", "bg-[#fbbf24]", "bg-[#fcd34d]", 
+  "bg-[#fde68a]", "bg-[#fef3c7]",
+
+  // --- ORANGE & PEACH GLOW ---
+  "bg-[#fff7ed]", "bg-[#ffedd5]", "bg-[#fed7aa]", "bg-[#fdba74]", 
+  "bg-[#fb923c]", "bg-[#f97316]", "bg-[#fb923c]", "bg-[#fdba74]", 
+  "bg-[#fed7aa]", "bg-[#ffedd5]",
+
+  // --- THE BRIDGE (Back to Pink) ---
+  "bg-[#fff1f2]", "bg-[#fff5f5]" 
 ];
 
 
