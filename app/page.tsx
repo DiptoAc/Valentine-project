@@ -52,15 +52,46 @@ export default function ValentineProject() {
   const [noCount, setNoCount] = useState(0);
   const [mounted, setMounted] = useState(false);
 
+  const [bgMusic] = useState(typeof Audio !== "undefined" ? new Audio('/openmp3.mp3') : null);
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
+
+  useEffect(() => {
+  return () => {
+    bgMusic?.pause(); // Stops music if the user leaves the page
+  };
+}, [bgMusic]);
+
+
+
+
+  const playMusic = () => {
+    if (bgMusic && bgMusic.paused) {
+      bgMusic.loop = true;
+      bgMusic.volume = 0.3;
+      bgMusic.play().catch(() => console.log("Waiting for user interaction..."));
+    }
+  };
   const moveButton = () => {
+    playMusic(); // <--- Add this line here
     const randomX = Math.floor(Math.random() * 60) + 10; 
     const randomY = Math.floor(Math.random() * 70) + 15;
     setNoButtonPos({ top: `${randomY}%`, left: `${randomX}%` });
     setNoCount((prev) => prev + 1);
+  };
+
+
+  const handleYes = () => {
+    if (bgMusic) {
+      bgMusic.pause();
+      bgMusic.currentTime = 0; 
+      bgMusic.src = ""; 
+      bgMusic.load(); 
+    }
+    setIsAccepted(true);
   };
 
   if (!mounted) return null;
@@ -70,7 +101,10 @@ export default function ValentineProject() {
   }
 
   return (
-    <main className="relative flex flex-col items-center justify-center h-screen bg-gradient-to-b from-pink-50 to-white overflow-hidden p-4 touch-none">
+    <main 
+    onClick={playMusic}
+    className="relative flex flex-col items-center justify-center h-screen bg-gradient-to-b from-pink-50 to-white overflow-hidden p-4 touch-none"
+    >
       <HeartTrail />
       
       <div className="z-10 text-center mb-12">
@@ -86,11 +120,11 @@ export default function ValentineProject() {
       
       <div className="flex gap-8 items-center z-10">
         <button
-          onClick={() => setIsAccepted(true)}
-          className="bg-green-500 hover:bg-green-600 text-white font-black py-3 px-8 md:py-4 md:px-12 rounded-full text-xl md:text-2xl transition-all transform hover:scale-110 active:scale-95 shadow-lg z-20"
-        >
-          Yes
-        </button>
+        onClick={handleYes} // Just use the name of the function
+        className="bg-green-500 hover:bg-green-600 text-white font-black py-3 px-8 md:py-4 md:px-12 rounded-full text-xl md:text-2xl transition-all transform hover:scale-110 active:scale-95 shadow-lg z-20"
+      >
+        Yes
+      </button>
 
         <button
           onMouseEnter={moveButton}

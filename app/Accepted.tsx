@@ -31,33 +31,47 @@ const Accepted: React.FC<AcceptedProps> = ({ noCount }) => {
   ];
 
   useEffect(() => {
-    // 1. Confetti burst on entry
-    confetti({
-      particleCount: 150,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ['#ff0000', '#ff69b4', '#ffffff']
-    });
-
-    // 2. Music Logic with Promise Handling to prevent AbortError
-    const audio = new Audio('/music.mp3');
-    audio.loop = true;
-    let playPromise = audio.play();
-
-    if (playPromise !== undefined) {
-      playPromise.catch((error) => {
-        console.log("Playback prevented by browser until user interacts:", error);
+      // 1. Confetti burst on entry
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#ff0000', '#ff69b4', '#ffffff']
       });
-    }
 
-    return () => {
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
+      // 2. Music Logic
+      const audio = new Audio('/accepted.mp3');
+      audio.loop = true;
+      let playPromise: Promise<void> | undefined;
+
+      // We use a small timeout to let the previous page's audio fully clear
+      const timer = setTimeout(() => {
+        playPromise = audio.play();
+        
+        if (playPromise !== undefined) {
+          playPromise.catch((error) => {
+            console.log("Playback prevented by browser until user interacts:", error);
+          });
+        }
+      }, 150); // 150ms delay for a clean transition
+
+      // Cleanup function
+      return () => {
+        clearTimeout(timer);
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            audio.pause();
+            audio.src = ""; // Nuclear option: clear source to prevent ghost audio
+          }).catch(() => {
+            // Promise was rejected (likely browser blocked it), no need to pause
+          });
+        } else {
+          // Fallback for cases where the timeout hasn't fired yet
           audio.pause();
-        }).catch(() => {});
-      }
-    };
-  }, []);
+          audio.src = "";
+        }
+      };
+    }, []);
 
   const nextPage = () => {
     if (page < storyPages.length - 1) setPage(page + 1);
@@ -103,35 +117,58 @@ const Accepted: React.FC<AcceptedProps> = ({ noCount }) => {
         </AnimatePresence>
 
         {/* Footer Navigation */}
-        <div className="flex justify-between items-center mt-6 border-t border-pink-100 pt-4">
-          <button 
-            onClick={prevPage}
-            disabled={page === 0}
-            className={`text-sm font-bold ${page === 0 ? 'text-gray-300' : 'text-red-400 hover:text-red-600'}`}
-          >
-            ← Back
-          </button>
-
-          <span className="text-xs text-gray-400 font-mono font-bold">
-            {page + 1} / {storyPages.length}
-          </span>
-
-          {page < storyPages.length - 1 ? (
+        <div className="flex flex-col items-center mt-6 border-t border-pink-100 pt-4 gap-4">
+          <div className="flex justify-between items-center w-full">
             <button 
-              onClick={nextPage}
-              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-md transition-all active:scale-95"
+              onClick={prevPage}
+              disabled={page === 0}
+              className={`text-sm font-bold ${page === 0 ? 'text-gray-300' : 'text-red-400 hover:text-red-600'}`}
             >
-              Next →
+              ← Back
             </button>
-          ) : (
-            <motion.span 
-              initial={{ scale: 0.8 }}
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-              className="text-red-600 font-black text-sm"
+
+            <span className="text-xs text-gray-400 font-mono font-bold">
+              {page + 1} / {storyPages.length}
+            </span>
+
+            {page < storyPages.length - 1 ? (
+              <button 
+                onClick={nextPage}
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-md transition-all active:scale-95"
+              >
+                Next →
+              </button>
+            ) : (
+              <motion.span 
+                initial={{ scale: 0.8 }}
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+                className="text-red-600 font-black text-sm"
+              >
+                The End ❤️
+              </motion.span>
+            )}
+          </div>
+
+          {/* NEW: Confetti Rain Button (Only shows on the last page) */}
+          {page === storyPages.length - 1 && (
+            <motion.button
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => {
+                confetti({
+                  particleCount: 100,
+                  spread: 100,
+                  origin: { y: 0.7 },
+                  colors: ['#ff0000', '#ff69b4', '#ffffff', '#FFD700'] // Added Gold
+                });
+              }}
+              className="bg-gradient-to-r from-pink-400 to-red-500 text-white text-xs font-bold py-2 px-6 rounded-full shadow-lg border-2 border-white flex items-center gap-2"
             >
-              The End ❤️
-            </motion.span>
+              <span>🎊</span> Trigger Confetti Rain <span>🎊</span>
+            </motion.button>
           )}
         </div>
 
