@@ -7,6 +7,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface AcceptedProps {
   noCount: number;
 }
+// The background gets deeper and more vibrant with each page
+const bgColors = [
+  "bg-[#fff5f5]",   // Page 1: Very pale, soft pink
+  "bg-[#ffe4e6]",   // Page 2: Medium vibrant rose
+  "bg-[#fecdd3]"    // Page 3: Most vibrant, warm blush
+];
 
 const Accepted: React.FC<AcceptedProps> = ({ noCount }) => {
   const [page, setPage] = useState(0);
@@ -82,13 +88,14 @@ const Accepted: React.FC<AcceptedProps> = ({ noCount }) => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-[#fff5f5] p-4 overflow-hidden">
+    <div className={`relative flex items-center justify-center h-screen ${bgColors[page]} transition-colors duration-1000 ease-in-out p-4 overflow-hidden`}>
       {/* The Book Container */}
       <motion.div 
         initial={{ rotateY: -20, opacity: 0 }}
         animate={{ rotateY: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="relative w-full max-w-md bg-white aspect-[3/4.5] rounded-r-2xl shadow-2xl border-l-[12px] border-red-700 p-6 md:p-10 flex flex-col justify-between overflow-hidden"
+        // className="relative w-full max-w-md bg-white aspect-[3/4.5] rounded-r-2xl shadow-2xl border-l-[12px] border-red-700 p-6 md:p-10 flex flex-col justify-between overflow-hidden"
+        className="relative w-full max-w-md bg-white aspect-[3/4.5] rounded-r-2xl shadow-2xl border-l-[12px] border-red-700 p-6 md:p-10 flex flex-col justify-between overflow-hidden z-10"
         style={{ perspective: "1000px" }}
       >
         <AnimatePresence mode="wait">
@@ -187,11 +194,19 @@ const Accepted: React.FC<AcceptedProps> = ({ noCount }) => {
               transition={{ delay: 0.5 }} // Slight delay so it appears after the page flip
             >
               {/* SUST CREDIT - Bottom Left */}
-              <div className="absolute bottom-4 left-4 z-30 flex flex-col items-start opacity-60 hover:opacity-100 transition-opacity">
-                <p className="text-[10px] md:text-xs font-mono font-bold text-red-800 uppercase tracking-widest">
-                  Handcrafted by Sudipto @ SUST
-                </p>
-                <div className="h-[1.5px] w-full bg-red-300 mt-1" />
+              <div className="fixed bottom-6 left-6 z-50 flex flex-col items-start opacity-60 hover:opacity-100 transition-opacity pointer-events-auto">
+                <a 
+                  href="https://sudipto-sust.vercel.app/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="group cursor-pointer"
+                >
+                  <p className="text-[10px] md:text-xs font-mono font-bold text-red-800 uppercase tracking-widest group-hover:text-red-600 transition-colors">
+                    Handcrafted by Stupido @ SUST
+                  </p>
+                  {/* The line below will grow when hovered */}
+                  <div className="h-[1.5px] w-0 group-hover:w-full bg-red-400 transition-all duration-300 mt-1" />
+                </a>
               </div>
 
               {/* REPLAY BUTTON - Bottom Right */}
