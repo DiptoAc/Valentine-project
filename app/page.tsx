@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Accepted from './Accepted';
 import { noPhrases } from './phrases';
+import FloatingHearts from './components/FloatingHearts';
+import { motion } from 'framer-motion';
 
 // --- HEART TRAIL LOGIC ---
 const HeartTrail = () => {
@@ -101,45 +103,51 @@ export default function ValentineProject() {
   }
 
   return (
-    <main 
+  <main 
     onClick={playMusic}
-    className="relative flex flex-col items-center justify-center h-screen bg-gradient-to-b from-pink-50 to-white overflow-hidden p-4 touch-none"
-    >
-      <HeartTrail />
-      
-      <div className="z-10 text-center mb-12">
-        <h1 className="text-4xl md:text-6xl font-black text-pink-600 drop-shadow-sm">
-          Will you be my Valentine? 🌹
-        </h1>
-        {noCount > 0 && (
-          <p className="mt-4 text-pink-400 font-mono font-bold animate-pulse">
-            Attempts to escape: {noCount}
-          </p>
-        )}
-      </div>
-      
-      <div className="flex gap-8 items-center z-10">
-        <button
-        onClick={handleYes} // Just use the name of the function
+    className="relative flex flex-col items-center justify-center h-screen bg-gradient-to-br from-pink-100 via-white to-red-50 overflow-hidden p-4 touch-none"
+  >
+    {/* 1. Add the Floating Hearts here */}
+    <FloatingHearts />
+    
+    {/* 2. Your original HeartTrail */}
+    <HeartTrail />
+    
+    {/* 3. Your original text section */}
+    <div className="z-10 text-center mb-12">
+      <h1 className="text-4xl md:text-6xl font-black text-pink-600 drop-shadow-sm">
+        Will you be my Valentine? 🌹
+      </h1>
+      {noCount > 0 && (
+        <p className="mt-4 text-pink-400 font-mono font-bold animate-pulse">
+          Attempts to escape: {noCount}
+        </p>
+      )}
+    </div>
+    
+    {/* 4. Your original buttons section */}
+    <div className="flex gap-8 items-center z-10">
+      <button
+        onClick={handleYes}
         className="bg-green-500 hover:bg-green-600 text-white font-black py-3 px-8 md:py-4 md:px-12 rounded-full text-xl md:text-2xl transition-all transform hover:scale-110 active:scale-95 shadow-lg z-20"
       >
         Yes
       </button>
 
-        <button
-          onMouseEnter={moveButton}
-          onTouchStart={(e) => { e.preventDefault(); moveButton(); }}
-          style={{ 
-            position: 'absolute', 
-            top: noButtonPos.top, 
-            left: noButtonPos.left,
-            transition: 'all 0.15s ease-out',
-          }}
-          className="bg-red-500 text-white font-bold py-2 px-4 rounded-lg shadow-md whitespace-nowrap text-sm md:text-base z-20"
-        >
-          {noPhrases[noCount % noPhrases.length]}
-        </button>
-      </div>
-    </main>
-  );
+      <button
+        onMouseEnter={moveButton}
+        onTouchStart={(e) => { e.preventDefault(); moveButton(); }}
+        style={{ 
+          position: 'absolute', 
+          top: noButtonPos.top, 
+          left: noButtonPos.left,
+          transition: 'all 0.15s ease-out',
+        }}
+        className="bg-red-500 text-white font-bold py-2 px-4 rounded-lg shadow-md whitespace-nowrap text-sm md:text-base z-20"
+      >
+        {noPhrases[noCount % noPhrases.length]}
+      </button>
+    </div>
+  </main>
+);
 }

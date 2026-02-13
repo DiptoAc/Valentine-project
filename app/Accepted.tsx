@@ -162,24 +162,45 @@ const Accepted: React.FC<AcceptedProps> = ({ noCount }) => {
             )}
           </div>
 
+          {/* ENHANCED: Confetti Rain Button */}
           {page === storyPages.length - 1 && (
             <motion.button
               initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              whileHover={{ scale: 1.1 }}
+              animate={{ 
+                y: 0, 
+                opacity: 1,
+                scale: [1, 1.05, 1], // Pulsing effect
+                boxShadow: [
+                  "0px 0px 0px rgba(236, 72, 153, 0)",
+                  "0px 0px 20px rgba(236, 72, 153, 0.6)",
+                  "0px 0px 0px rgba(236, 72, 153, 0)"
+                ]
+              }}
+              transition={{ 
+                y: { duration: 0.5 },
+                opacity: { duration: 0.5 },
+                scale: { repeat: Infinity, duration: 2, ease: "easeInOut" },
+                boxShadow: { repeat: Infinity, duration: 2, ease: "easeInOut" }
+              }}
+              whileHover={{ scale: 1.15, filter: "brightness(1.1)" }}
               whileTap={{ scale: 0.9 }}
               onClick={() => {
                 confetti({
-                  particleCount: 100,
+                  particleCount: 150, // Increased count for more impact
                   spread: 100,
                   origin: { y: 0.7 },
                   colors: ['#ff0000', '#ff69b4', '#ffffff', '#FFD700', "#000000", "#FF1493", "#FF4500"]
                 });
                 setQuoteIndex((prev) => (prev + 1) % valentineQuotes.length);
               }}
-              className="bg-gradient-to-r from-pink-400 to-red-500 text-white text-xs font-bold py-2 px-6 rounded-full shadow-lg border-2 border-white flex items-center gap-2"
+              className="bg-gradient-to-r from-pink-500 via-red-500 to-rose-500 text-white text-sm md:text-base font-black py-3 px-8 rounded-full shadow-2xl border-2 border-white flex items-center gap-3 mt-2 relative overflow-hidden group"
             >
-              <span>🎊</span> Trigger Confetti Rain <span>🎊</span>
+              {/* Inner glow effect on hover */}
+              <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+              
+              <span className="text-lg md:text-xl animate-bounce">🎊</span> 
+              <span className="tracking-tight uppercase">ভালোবাসা পড়ুক ঝরে</span>
+              <span className="text-lg md:text-xl animate-bounce">🎊</span>
             </motion.button>
           )}
         </div>
