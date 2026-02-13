@@ -14,7 +14,7 @@ const bgColors = [
   "bg-[#ffe4e6]",   // Page 2
   "bg-[#fecdd3]"    // Page 3
 ];
-const secretIcons = ["❤️", "💖", "✨", "🌹", "🦋", "💍", "🏹", "💻", "⭐"];
+const secretIcons = ["❤️", "💖", "✨", "🌹", "🦋", "💍", "🏹", "🐱", "⭐", "🌷" , "🍒" , "😉" , "💘"];
 
 
 const Accepted: React.FC<AcceptedProps> = ({ noCount }) => {
@@ -173,7 +173,7 @@ const Accepted: React.FC<AcceptedProps> = ({ noCount }) => {
                   particleCount: 100,
                   spread: 100,
                   origin: { y: 0.7 },
-                  colors: ['#ff0000', '#ff69b4', '#ffffff', '#FFD700']
+                  colors: ['#ff0000', '#ff69b4', '#ffffff', '#FFD700', "#000000", "#FF1493", "#FF4500"]
                 });
                 setQuoteIndex((prev) => (prev + 1) % valentineQuotes.length);
               }}
