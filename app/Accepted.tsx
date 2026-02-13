@@ -10,10 +10,47 @@ interface AcceptedProps {
 }
 
 const bgColors = [
-  "bg-[#fff5f5]",   // Page 1
-  "bg-[#ffe4e6]",   // Page 2
-  "bg-[#fecdd3]"    // Page 3
+  // --- Pinks & Roses ---
+  "bg-[#fff5f5]", // Very Pale Pink
+  "bg-[#ffe4e6]", // Soft Rose
+  "bg-[#fecdd3]", // Vibrant Blush
+  "bg-[#fda4af]", // Deep Rose
+  
+  // --- Purples & Lavenders ---
+  "bg-[#f5f3ff]", // Pale Lavender
+  "bg-[#ede9fe]", // Light Purple
+  "bg-[#ddd6fe]", // Soft Violet
+  "bg-[#c4b5fd]", // Vibrant Lavender
+  
+  // --- Blues & Cyans ---
+  "bg-[#eff6ff]", // Ice Blue
+  "bg-[#dbeafe]", // Sky Blue
+  "bg-[#bfdbfe]", // Soft Azure
+  "bg-[#93c5fd]", // Bright Blue
+  
+  // --- Teals & Mint ---
+  "bg-[#f0fdfa]", // Pale Mint
+  "bg-[#ccfbf1]", // Light Teal
+  "bg-[#99f6e4]", // Soft Aqua
+  "bg-[#5eead4]", // Vibrant Teal
+  
+  // --- Greens ---
+  "bg-[#f0fdf4]", // Pale Sage
+  "bg-[#dcfce7]", // Light Green
+  "bg-[#bbf7d0]", // Soft Mint Green
+  "bg-[#86efac]", // Bright Pastel Green
+  
+  // --- Yellows & Oranges ---
+  "bg-[#fffbeb]", // Cream
+  "bg-[#fef3c7]", // Soft Gold
+  "bg-[#fde68a]", // Warm Yellow
+  "bg-[#fcd34d]", // Vibrant Amber
+  "bg-[#ffedd5]", // Pale Peach
+  "bg-[#fed7aa]", // Soft Orange
+  "bg-[#fdba74]"  // Warm Apricot
 ];
+
+
 const secretIcons = ["❤️", "💖", "✨", "🌹", "🦋", "💍", "🏹", "🐱", "⭐", "🌷" , "🍒" , "😉" , "💘"];
 
 
@@ -21,6 +58,7 @@ const Accepted: React.FC<AcceptedProps> = ({ noCount }) => {
   const [page, setPage] = useState(0);
   const [quoteIndex, setQuoteIndex] = useState(0); // Moved inside the component
   const [mounted, setMounted] = useState(false);
+  const [bgIndex, setBgIndex] = useState(0);
 
   useEffect(() => {
     setMounted(true);
@@ -80,7 +118,7 @@ const Accepted: React.FC<AcceptedProps> = ({ noCount }) => {
   if (!mounted) return null;
 
   return (
-    <div className={`relative flex items-center justify-center h-screen ${bgColors[page]} transition-colors duration-1000 ease-in-out p-4 overflow-hidden`}>
+    <div className={`relative flex items-center justify-center h-screen ${bgColors[bgIndex]} transition-colors duration-1000 ease-in-out p-4 overflow-hidden`}>
       
       {/* The Book Container */}
       <motion.div 
@@ -191,7 +229,11 @@ const Accepted: React.FC<AcceptedProps> = ({ noCount }) => {
                   origin: { y: 0.7 },
                   colors: ['#ff0000', '#ff69b4', '#ffffff', '#FFD700', "#000000", "#FF1493", "#FF4500"]
                 });
+                // Cycle the quote on each click
                 setQuoteIndex((prev) => (prev + 1) % valentineQuotes.length);
+
+                // Cycle the background color
+                setBgIndex((prev) => (prev + 1) % bgColors.length);
               }}
               className="bg-gradient-to-r from-pink-500 via-red-500 to-rose-500 text-white text-sm md:text-base font-black py-3 px-8 rounded-full shadow-2xl border-2 border-white flex items-center gap-3 mt-2 relative overflow-hidden group"
             >
@@ -212,7 +254,7 @@ const Accepted: React.FC<AcceptedProps> = ({ noCount }) => {
           <div className="fixed bottom-6 left-6 z-50 flex flex-col items-start opacity-60 hover:opacity-100 transition-opacity">
             <a href="https://sudipto-sust.vercel.app/" target="_blank" rel="noopener noreferrer" className="group">
               <p className="text-[10px] md:text-xs font-mono font-bold text-red-800 uppercase tracking-widest group-hover:text-red-600">
-                Handcrafted by Sudipto @ SUST
+                Credit: (Stupido/Sust)
               </p>
               <div className="h-[1.5px] w-0 group-hover:w-full bg-red-400 transition-all duration-300 mt-1" />
             </a>
